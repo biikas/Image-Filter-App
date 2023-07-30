@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Filter App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Image Filter App</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <input type="submit" value="Upload">
+    </form>
+    {% if session['image_path'] %}
+        <h2>Filtered Image:</h2>
+        <img src="{{ session['image_path'] }}" alt="Filtered Image">
+        <form action="/apply_filters" method="post">
+            <input type="hidden" name="image_path" value="{{ session['image_path'] }}">
+            <button type="submit" name="filter" value="blur">Apply Blur</button>
+            <button type="submit" name="filter" value="sharpen">Apply Sharpen</button>
+            <button type="submit" name="filter" value="brightness">Brightness</button>
+            <button type="submit" name="filter" value="saturation">Saturation</button>
+            <button type="submit" name="filter" value="black_and_white">Black & White</button>
+            <button type="submit" name="filter" value="invert">Invert</button>
+            <!-- Add more buttons for other filters -->
+        </form>
+        <form action="/get_original" method="post">
+            <button type="submit">Get Original</button>
+        </form>
+    {% endif %}
+</body>
+</html>
